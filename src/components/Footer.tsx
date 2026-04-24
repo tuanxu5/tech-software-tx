@@ -5,12 +5,12 @@ const socialLinks = [
   { 
     name: "Facebook", 
     icon: IconsAssets.facebook,
-    href: "https://facebook.com/yourpage" 
+    href: "https://www.facebook.com/tunnxu5/" 
   },
   { 
     name: "Telegram", 
     icon: IconsAssets.telegram,
-    href: "https://t.me/yourusername" 
+    href: "https://t.me/tuanxu5" 
   },
   { 
     name: "Zalo", 
@@ -20,12 +20,12 @@ const socialLinks = [
   { 
     name: "LinkedIn", 
     icon: IconsAssets.linkedin,
-    href: "https://linkedin.com/in/yourprofile" 
+    href: "https://www.linkedin.com/in/tuanxu5/" 
   },
   { 
     name: "GitHub", 
     icon: IconsAssets.github,
-    href: "https://github.com/yourusername" 
+    href: "https://github.com/tuanxu5" 
   },
 ];
 
@@ -100,7 +100,7 @@ export default function Footer() {
             {/* Quick Links */}
             <div style={{ display: "flex", gap: 40, flexWrap: "wrap", marginTop: 8 }}>
               <a
-                href="#features"
+                href="#services"
                 style={{
                   fontSize: 16,
                   color: "rgba(255,255,255,0.5)",
@@ -116,6 +116,24 @@ export default function Footer() {
                 }}
               >
                 Dịch vụ
+              </a>
+              <a
+                href="#process"
+                style={{
+                  fontSize: 16,
+                  color: "rgba(255,255,255,0.5)",
+                  textDecoration: "none",
+                  transition: "color 0.2s ease",
+                  fontWeight: 600,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "#fff";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "rgba(255,255,255,0.5)";
+                }}
+              >
+                Quy trình
               </a>
               <a
                 href="#portfolio"
@@ -154,7 +172,7 @@ export default function Footer() {
                 Báo giá
               </a>
               <a
-                href="/contact"
+                href="#testimonials"
                 style={{
                   fontSize: 16,
                   color: "rgba(255,255,255,0.5)",
@@ -169,7 +187,25 @@ export default function Footer() {
                   e.currentTarget.style.color = "rgba(255,255,255,0.5)";
                 }}
               >
-                Liên hệ
+                Đánh giá
+              </a>
+              <a
+                href="#faq"
+                style={{
+                  fontSize: 16,
+                  color: "rgba(255,255,255,0.5)",
+                  textDecoration: "none",
+                  transition: "color 0.2s ease",
+                  fontWeight: 600,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "#fff";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "rgba(255,255,255,0.5)";
+                }}
+              >
+                FAQ
               </a>
             </div>
           </div>

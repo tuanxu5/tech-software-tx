@@ -7,42 +7,42 @@ const faqs = [
   {
     question: "Thời gian hoàn thành dự án là bao lâu?",
     answer:
-      "Tùy thuộc vào quy mô dự án. Landing page: 1-2 tuần. Website doanh nghiệp: 3-4 tuần. E-commerce: 4-6 tuần. Mobile app: 6-8 tuần. Chúng tôi cam kết giao đúng deadline đã thỏa thuận.",
+      "Tùy thuộc vào quy mô dự án. Website cơ bản: 3-5 ngày. Website doanh nghiệp: 1-2 tuần. Website cao cấp: 2-3 tuần. App cơ bản: 3-4 tuần. App doanh nghiệp: 4-6 tuần. App cao cấp: 6-8 tuần. Chúng tôi cam kết giao đúng deadline đã thỏa thuận.",
   },
   {
     question: "Chi phí phát triển là bao nhiêu?",
     answer:
-      "Giá dao động từ 15-80 triệu tùy gói dịch vụ. Landing page: 15 triệu. Website doanh nghiệp: 35 triệu. E-commerce: 60 triệu. Mobile app: 80 triệu. Liên hệ để được tư vấn chi tiết.",
+      "Website: từ 3-12 triệu. Mobile app: từ 8-18 triệu. Cụ thể: Website cơ bản 3tr, Website doanh nghiệp 8tr, Website cao cấp 12tr. App cơ bản 8tr, App doanh nghiệp 14tr, App cao cấp 18tr. Liên hệ để được tư vấn chi tiết và báo giá chính xác.",
   },
   {
     question: "Tôi có được sở hữu source code không?",
     answer:
-      "Có, bạn sở hữu 100% source code sau khi thanh toán đầy đủ. Chúng tôi cung cấp file source, tài liệu hướng dẫn, và hỗ trợ deploy lên server của bạn nếu cần.",
+      "Có, bạn sở hữu 100% source code sau khi thanh toán đầy đủ. Chúng tôi cung cấp file source, tài liệu hướng dẫn, và hỗ trợ deploy lên server của bạn nếu cần. Source code được viết sạch, chuẩn best practices.",
   },
   {
     question: "Có hỗ trợ bảo hành và bảo trì không?",
     answer:
-      "Có. Bảo hành 3-12 tháng tùy gói (fix bug, cập nhật nhỏ miễn phí). Sau đó có gói bảo trì từ 2-5 triệu/tháng bao gồm: hosting, backup, security update, support 24/7.",
+      "Có. Bảo hành 3-12 tháng tùy gói (fix bug, cập nhật nhỏ miễn phí). Bao gồm: hosting miễn phí, backup tự động, SSL certificate, hỗ trợ kỹ thuật 24/7. Sau thời gian bảo hành có gói bảo trì linh hoạt theo nhu cầu.",
   },
   {
     question: "Website có tối ưu SEO không?",
     answer:
-      "Có. Tất cả website đều được tối ưu SEO on-page cơ bản: meta tags, sitemap, schema markup, tốc độ tải nhanh, mobile-friendly. Có thể nâng cấp gói SEO chuyên sâu nếu cần.",
+      "Có. Tất cả website đều được tối ưu SEO chuẩn Google: meta tags, sitemap, schema markup, tốc độ tải nhanh < 2s, mobile-friendly, Lighthouse 90+. Gói cao cấp có SEO chuyên sâu và đa ngôn ngữ.",
   },
   {
     question: "Tôi có thể tự cập nhật nội dung không?",
     answer:
-      "Có. Chúng tôi tích hợp CMS (Content Management System) dễ dùng. Bạn có thể tự cập nhật text, hình ảnh, sản phẩm mà không cần kiến thức kỹ thuật. Có đào tạo sử dụng miễn phí.",
+      "Có. Chúng tôi tích hợp CMS (Content Management System) trực quan, dễ dùng. Bạn có thể tự cập nhật text, hình ảnh, sản phẩm mà không cần kiến thức kỹ thuật. Có đào tạo sử dụng CMS miễn phí cho team.",
   },
   {
     question: "Thanh toán như thế nào?",
     answer:
-      "Thanh toán 2 đợt: 50% khi ký hợp đồng, 50% khi bàn giao. Chấp nhận chuyển khoản ngân hàng, Momo, ZaloPay. Có hóa đơn VAT đầy đủ.",
+      "Thanh toán linh hoạt 2-3 đợt: 50% khi ký hợp đồng, 30% khi hoàn thành 70% dự án, 20% khi bàn giao. Chấp nhận chuyển khoản ngân hàng, Momo, ZaloPay. Có hóa đơn VAT đầy đủ.",
   },
   {
     question: "Mobile app có publish lên Store không?",
     answer:
-      "Có. Chúng tôi hỗ trợ publish app lên App Store (iOS) và Google Play (Android). Bao gồm cả việc tạo tài khoản developer, chuẩn bị assets, và submit app.",
+      "Có. Chúng tôi hỗ trợ upload app lên App Store (iOS) và Google Play (Android). Bao gồm: tạo tài khoản developer, chuẩn bị assets, submit app, và maintain sau khi publish. Đảm bảo app được duyệt thành công.",
   },
 ];
 
@@ -78,7 +78,15 @@ export default function FAQ() {
       <div style={{ maxWidth: 1000, margin: "0 auto", position: "relative" }}>
         {/* Header */}
         <div className="text-center fade-in-up" style={{ marginBottom: 80 }}>
-          <h2 className="section-heading text-white" style={{ marginBottom: 20 }}>
+          <h2 
+            className="section-heading text-white" 
+            style={{ 
+              marginBottom: 20,
+              WebkitTextStroke: "1px rgba(255, 255, 255, 0.8)",
+              WebkitTextFillColor: "transparent",
+              color: "transparent",
+            }}
+          >
             Câu hỏi thường gặp
           </h2>
           <p

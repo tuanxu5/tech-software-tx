@@ -25,7 +25,12 @@ export default function ContactPage() {
         <div style={{ maxWidth: 1000, margin: "0 auto" }}>
           <h1
             className="section-heading text-white"
-            style={{ marginBottom: 16 }}
+            style={{ 
+              marginBottom: 16,
+              WebkitTextStroke: "1px rgba(255, 255, 255, 0.8)",
+              WebkitTextFillColor: "transparent",
+              color: "transparent",
+            }}
           >
             Liên hệ
           </h1>

@@ -180,7 +180,15 @@ export default function Portfolio() {
       <div style={{ maxWidth: 1280, margin: "0 auto", position: "relative" }}>
         {/* Header */}
         <div className="text-center fade-in-up" style={{ marginBottom: 60 }}>
-          <h2 className="section-heading text-white" style={{ marginBottom: 20 }}>
+          <h2 
+            className="section-heading text-white" 
+            style={{ 
+              marginBottom: 20,
+              WebkitTextStroke: "1px rgba(255, 255, 255, 0.8)",
+              WebkitTextFillColor: "transparent",
+              color: "transparent",
+            }}
+          >
             Dự án tiêu biểu
           </h2>
           <p

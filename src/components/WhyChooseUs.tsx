@@ -69,11 +69,13 @@ export default function WhyChooseUs() {
 
   return (
     <section
+      id="services"
       style={{
         padding: "120px 32px",
         background: "#000",
         position: "relative",
         overflow: "hidden",
+        scrollMarginTop: "100px",
       }}
     >
       {/* Background gradient orb */}
@@ -95,7 +97,15 @@ export default function WhyChooseUs() {
         {/* Header */}
         <ScrollReveal>
           <div className="text-center" style={{ marginBottom: 80 }}>
-            <h2 id="services" className="section-heading text-white" style={{ marginBottom: 20 }}>
+            <h2 
+              className="section-heading text-white" 
+              style={{ 
+                marginBottom: 20,
+                WebkitTextStroke: "1px rgba(255, 255, 255, 0.8)",
+                WebkitTextFillColor: "transparent",
+                color: "transparent",
+              }}
+            >
               Tại sao chọn Tx Tech?
             </h2>
             <p

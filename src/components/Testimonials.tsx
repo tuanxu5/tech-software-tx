@@ -106,7 +106,15 @@ export default function Testimonials() {
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         {/* Header */}
         <div style={{ marginBottom: 80 }}>
-          <h2 className="section-heading text-white" style={{ marginBottom: 20 }}>
+          <h2 
+            className="section-heading text-white" 
+            style={{ 
+              marginBottom: 20,
+              WebkitTextStroke: "1px rgba(255, 255, 255, 0.8)",
+              WebkitTextFillColor: "transparent",
+              color: "transparent",
+            }}
+          >
             Khách hàng nói gì
           </h2>
           <p
@@ -155,7 +163,7 @@ export default function Testimonials() {
               // Rotate the circle so active is always at center-left
               const angleOffset = -(activeIndex / testimonials.length) * Math.PI * 2;
               const angle = (idx / testimonials.length) * Math.PI * 2 + angleOffset;
-              const radius = 200; // Increased from 190 to 200 for more spacing with larger images
+              const radius = 220; // Increased for more spacing between avatars
               const centerX = 80; // Moved further left from 100 to 80
               const centerY = 250;
               const x = centerX + Math.cos(angle) * radius;

@@ -285,7 +285,15 @@ export default function Process() {
           <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "40px" }}>
             {/* Header */}
             <div className="fade-in-up" style={{ marginBottom: 40 }}>
-              <h2 className="section-heading text-white" style={{ marginBottom: 20 }}>
+              <h2 
+                className="section-heading text-white" 
+                style={{ 
+                  marginBottom: 20,
+                  WebkitTextStroke: "1px rgba(255, 255, 255, 0.8)",
+                  WebkitTextFillColor: "transparent",
+                  color: "transparent",
+                }}
+              >
                 Quy trình làm việc
               </h2>
               <p
@@ -312,7 +320,6 @@ export default function Process() {
                     border: "1px solid rgba(255,255,255,0.1)",
                     borderRadius: "24px",
                     padding: "48px",
-                    minHeight: "500px",
                     scrollMarginTop: "100px",
                     transition: "border-color 0.3s ease",
                   }}
