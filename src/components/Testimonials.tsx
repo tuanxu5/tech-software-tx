@@ -125,8 +125,8 @@ export default function Testimonials() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "400px 1fr",
-            gap: "80px",
+            gridTemplateColumns: "450px 1fr",
+            gap: "60px",
             alignItems: "center",
           }}
         >
@@ -184,7 +184,7 @@ export default function Testimonials() {
                 scale = 0.5 + (1 - Math.min(distanceFromActive / Math.PI, 1)) * 0.5;
               }
               
-              const baseSize = isActive ? 250 : 130;
+              const baseSize = isActive ? 260 : 130;
               const size = baseSize * scale;
 
               return (
@@ -298,6 +298,7 @@ export default function Testimonials() {
                 fontStyle: "italic",
                 marginBottom: "24px",
                 fontWeight: 500,
+                maxWidth: "600px",
               }}
             >
               {activeTestimonial.quote}
@@ -423,7 +424,7 @@ export default function Testimonials() {
         }
 
         @media (max-width: 1024px) {
-          div[style*="gridTemplateColumns: 400px 1fr"] {
+          div[style*="gridTemplateColumns: 450px 1fr"] {
             grid-template-columns: 1fr !important;
             gap: 60px !important;
           }
