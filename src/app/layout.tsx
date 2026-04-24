@@ -1,12 +1,6 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-
-const plusJakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
-  subsets: ["latin"],
-  display: "swap",
-});
+import CustomCursor from "@/components/CustomCursor";
 
 export const metadata: Metadata = {
   title: "Tx Tech — Phát triển Website & Mobile App chuyên nghiệp",
@@ -20,8 +14,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi" className={`${plusJakarta.variable} h-full`}>
+    <html lang="vi" className="h-full">
       <body className="min-h-full flex flex-col bg-black text-white antialiased">
+        <CustomCursor />
         {children}
       </body>
     </html>

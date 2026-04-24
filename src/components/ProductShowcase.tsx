@@ -209,7 +209,7 @@ export default function ProductShowcase() {
               >
                 {item.body}
               </p>
-              <a href="#contact" className="btn-frosted" style={{ width: "fit-content", marginTop: 8 }}>
+              <a href="/contact" className="btn-frosted" style={{ width: "fit-content", marginTop: 8 }}>
                 Liên hệ ngay →
               </a>
             </div>

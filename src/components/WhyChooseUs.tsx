@@ -1,134 +1,212 @@
-import { Zap, Gem, DollarSign, Shield, Rocket, MessageCircle } from "lucide-react";
+"use client";
+
+import { useState } from "react";
+import { 
+  Zap, 
+  Gem, 
+  CircleDollarSign, 
+  MessageCircle,
+  Palette,
+  Gauge,
+  ShieldCheck,
+  LayoutDashboard
+} from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 
 const reasons = [
   {
-    icon: Zap,
-    title: "Giao hàng đúng hạn",
+    icon: Palette,
+    title: "Website & Mobile App",
     description:
-      "99% dự án giao đúng deadline. Quy trình làm việc chuyên nghiệp, cập nhật tiến độ hàng tuần.",
+      "Phát triển đa nền tảng: website responsive, ứng dụng iOS/Android. React Native, Flutter, Next.js.",
+  },
+  {
+    icon: Gauge,
+    title: "Hiệu suất & SEO",
+    description:
+      "Tải nhanh < 2s, Lighthouse 90+. Tối ưu SEO on-page, tăng thứ hạng Google tự nhiên.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Bảo mật & Ổn định",
+    description:
+      "SSL miễn phí, backup tự động, monitoring 24/7. Uptime 99.9%, dữ liệu luôn an toàn.",
+  },
+  {
+    icon: LayoutDashboard,
+    title: "Quản trị dễ dàng",
+    description:
+      "CMS trực quan, cập nhật nội dung trong vài phút. Đào tạo miễn phí cho team.",
+  },
+  {
+    icon: Zap,
+    title: "Đúng deadline",
+    description:
+      "99% dự án giao đúng hạn. Quy trình chuyên nghiệp, cập nhật tiến độ hàng tuần.",
   },
   {
     icon: Gem,
-    title: "Chất lượng đảm bảo",
+    title: "Chất lượng cao",
     description:
-      "Code sạch, chuẩn best practices. Test kỹ lưỡng trên nhiều thiết bị. Lighthouse score 90+.",
+      "Code sạch, chuẩn best practices. Test kỹ lưỡng trên nhiều thiết bị.",
   },
   {
-    icon: DollarSign,
-    title: "Giá cả hợp lý",
+    icon: CircleDollarSign,
+    title: "Giá hợp lý",
     description:
-      "Báo giá minh bạch, không phát sinh. Thanh toán linh hoạt 2 đợt. Ưu đãi cho khách hàng lâu dài.",
-  },
-  {
-    icon: Shield,
-    title: "Bảo mật cao",
-    description:
-      "SSL miễn phí, bảo vệ khỏi tấn công. Backup tự động hàng ngày. Tuân thủ chuẩn bảo mật quốc tế.",
-  },
-  {
-    icon: Rocket,
-    title: "Hiệu suất tối ưu",
-    description:
-      "Website tải nhanh < 2s. Tối ưu SEO on-page. CDN toàn cầu, uptime 99.9%.",
+      "Báo giá minh bạch, không phát sinh. Thanh toán linh hoạt, ưu đãi khách hàng lâu dài.",
   },
   {
     icon: MessageCircle,
     title: "Hỗ trợ tận tâm",
     description:
-      "Tư vấn miễn phí trước dự án. Đào tạo sử dụng CMS. Hỗ trợ kỹ thuật nhanh chóng sau bàn giao.",
+      "Tư vấn miễn phí, đào tạo sử dụng. Hỗ trợ kỹ thuật nhanh chóng sau bàn giao.",
   },
 ];
 
 export default function WhyChooseUs() {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
   return (
     <section
       style={{
-        padding: "100px 24px",
+        padding: "120px 32px",
         background: "#000",
-        borderTop: "1px solid rgba(255,255,255,0.06)",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+      {/* Background gradient orb */}
+      <div
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "600px",
+          height: "600px",
+          background: "radial-gradient(circle, rgba(215, 172, 56, 0.05) 0%, transparent 70%)",
+          filter: "blur(80px)",
+          pointerEvents: "none",
+        }}
+      />
+
+      <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative" }}>
         {/* Header */}
         <ScrollReveal>
-          <div className="text-center mb-16">
-            <h2 className="section-heading text-white mb-4">
+          <div className="text-center" style={{ marginBottom: 80 }}>
+            <h2 id="services" className="section-heading text-white" style={{ marginBottom: 20 }}>
               Tại sao chọn Tx Tech?
             </h2>
             <p
               style={{
-                fontSize: 18,
-                color: "#a6a6a6",
-                maxWidth: 560,
+                fontSize: 19,
+                color: "rgba(255,255,255,0.6)",
+                maxWidth: 680,
                 margin: "0 auto",
-                lineHeight: 1.5,
+                lineHeight: 1.6,
               }}
             >
-              6 lý do khách hàng tin tưởng và quay lại với chúng tôi
+              Dịch vụ toàn diện & chất lượng vượt trội
             </p>
           </div>
         </ScrollReveal>
 
-        {/* Grid */}
+        {/* Grid - 4 columns */}
         <div
-          className="grid gap-6"
-          style={{ gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))" }}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+            gap: "24px",
+            alignItems: "stretch",
+          }}
         >
           {reasons.map((reason, idx) => {
             const Icon = reason.icon;
+            const isHovered = hoveredIndex === idx;
+            
             return (
-              <ScrollReveal key={reason.title} delay={idx * 100}>
+              <ScrollReveal key={reason.title} delay={idx * 80}>
                 <div
-                  className="card-ring p-6 flex flex-col gap-4 hover-lift group"
                   style={{
-                    background: "#000",
-                  }}
-              >
-                <div
-                  className="icon-gradient-box"
-                  style={{
-                    width: 56,
-                    height: 56,
-                    borderRadius: 12,
-                    background: "rgba(215,172,56,0.08)",
-                    border: "1px solid rgba(215,172,56,0.2)",
+                    background: isHovered
+                      ? "linear-gradient(135deg, rgba(215, 172, 56, 0.05) 0%, rgba(237, 51, 52, 0.05) 100%)"
+                      : "rgba(255,255,255,0.02)",
+                    border: `1px solid ${isHovered ? "rgba(215,172,56,0.2)" : "rgba(255,255,255,0.08)"}`,
+                    borderRadius: "20px",
+                    padding: "32px",
+                    transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                    cursor: "default",
+                    position: "relative",
+                    overflow: "hidden",
+                    transform: isHovered ? "translateY(-4px)" : "translateY(0)",
+                    height: "100%",
                     display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
+                    flexDirection: "column",
                   }}
+                  onMouseEnter={() => setHoveredIndex(idx)}
+                  onMouseLeave={() => setHoveredIndex(null)}
                 >
-                  <svg width="0" height="0">
-                    <defs>
-                      <linearGradient id={`reason-grad-${idx}`} x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#d7ac38" />
-                        <stop offset="100%" stopColor="#ed3334" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                  <Icon size={28} stroke={`url(#reason-grad-${idx})`} strokeWidth={2} />
+
+                  <div style={{ display: "flex", flexDirection: "column", gap: "20px", alignItems: "flex-start", height: "100%" }}>
+                    {/* Icon with gradient background */}
+                    <div
+                      style={{
+                        width: "56px",
+                        height: "56px",
+                        borderRadius: "14px",
+                        background: "linear-gradient(135deg, rgba(215, 172, 56, 0.15) 0%, rgba(237, 51, 52, 0.15) 100%)",
+                        border: "1px solid rgba(215,172,56,0.3)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexShrink: 0,
+                        transition: "all 0.4s ease",
+                        boxShadow: isHovered ? "0 0 20px rgba(215, 172, 56, 0.3)" : "none",
+                      }}
+                    >
+                      <svg width="0" height="0">
+                        <defs>
+                          <linearGradient id={`icon-grad-${idx}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stopColor="#d7ac38" />
+                            <stop offset="100%" stopColor="#ed3334" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                      <Icon 
+                        size={28} 
+                        stroke={`url(#icon-grad-${idx})`}
+                        strokeWidth={2}
+                      />
+                    </div>
+
+                    {/* Content */}
+                    <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+                      <h3
+                        style={{
+                          fontSize: "20px",
+                          fontWeight: 700,
+                          color: "#fff",
+                          letterSpacing: "-0.5px",
+                          marginBottom: "8px",
+                          lineHeight: 1.3,
+                        }}
+                      >
+                        {reason.title}
+                      </h3>
+                      <p
+                        style={{
+                          fontSize: "14px",
+                          lineHeight: 1.6,
+                          color: "rgba(255,255,255,0.6)",
+                        }}
+                      >
+                        {reason.description}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <h3
-                  style={{
-                    fontSize: 20,
-                    fontWeight: 700,
-                    color: "#fff",
-                    letterSpacing: "-0.5px",
-                  }}
-                >
-                  {reason.title}
-                </h3>
-                <p
-                  style={{
-                    fontSize: 15,
-                    lineHeight: 1.7,
-                    color: "#a6a6a6",
-                  }}
-                >
-                  {reason.description}
-                </p>
-              </div>
-            </ScrollReveal>
+              </ScrollReveal>
             );
           })}
         </div>

@@ -1,138 +1,329 @@
-const footerLinks = {
-  "Dịch vụ": ["Landing Page", "Website Doanh Nghiệp", "E-Commerce", "Mobile App", "Bảo trì"],
-  "Tài nguyên": ["Blog", "Case Study", "Hướng dẫn", "Hỗ trợ", "FAQ"],
-  "Công ty": ["Về chúng tôi", "Tuyển dụng", "Liên hệ", "Chính sách", "Bảo mật"],
-};
+import Image from "next/image";
+import { IconsAssets } from "../../public/icons";
+
+const socialLinks = [
+  { 
+    name: "Facebook", 
+    icon: IconsAssets.facebook,
+    href: "https://facebook.com/yourpage" 
+  },
+  { 
+    name: "Telegram", 
+    icon: IconsAssets.telegram,
+    href: "https://t.me/yourusername" 
+  },
+  { 
+    name: "Zalo", 
+    icon: IconsAssets.zalo,
+    href: "https://zalo.me/0386426150" 
+  },
+  { 
+    name: "LinkedIn", 
+    icon: IconsAssets.linkedin,
+    href: "https://linkedin.com/in/yourprofile" 
+  },
+  { 
+    name: "GitHub", 
+    icon: IconsAssets.github,
+    href: "https://github.com/yourusername" 
+  },
+];
 
 export default function Footer() {
   return (
     <footer
       style={{
-        borderTop: "1px solid rgba(255,255,255,0.06)",
-        padding: "60px 24px 40px",
+        position: "relative",
+        padding: "100px 32px 40px",
+        background: "#000",
+        overflow: "hidden",
       }}
     >
-      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+      {/* Gradient orb background */}
+      <div
+        style={{
+          position: "absolute",
+          top: "-30%",
+          left: "20%",
+          width: "600px",
+          height: "600px",
+          background: "radial-gradient(circle, rgba(215, 172, 56, 0.06) 0%, transparent 70%)",
+          filter: "blur(100px)",
+          pointerEvents: "none",
+        }}
+      />
+
+      <div style={{ maxWidth: 1280, margin: "0 auto", position: "relative" }}>
+        {/* Main content - 2 columns */}
         <div
-          className="grid gap-10"
-          style={{ gridTemplateColumns: "1fr repeat(3, auto)", alignItems: "start" }}
+          className="footer-grid"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1.2fr 1fr",
+            gap: 80,
+            alignItems: "start",
+            marginBottom: 60,
+          }}
         >
-          {/* Brand */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          {/* Left: Brand & Info */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
+            {/* Logo */}
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
                 <defs>
                   <linearGradient id="footer-logo-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stopColor="#d7ac38" />
                     <stop offset="100%" stopColor="#ed3334" />
                   </linearGradient>
                 </defs>
-                <rect width="22" height="22" rx="5" fill="url(#footer-logo-gradient)" />
-                <path d="M7 6h8v2H7zM7 10h8v2H7zM7 14h5v2H7z" fill="white" stroke="white" strokeWidth="0.5" />
+                <rect width="48" height="48" rx="12" fill="url(#footer-logo-gradient)" />
+                <path d="M14 12h20v4H14zM14 22h20v4H14zM14 32h12v4H14z" fill="white" stroke="white" strokeWidth="0.5" />
               </svg>
               <span
                 style={{
-                  fontSize: 16,
-                  fontWeight: 600,
+                  fontSize: 28,
+                  fontWeight: 700,
                   color: "#fff",
-                  letterSpacing: "-0.3px",
+                  letterSpacing: "-0.8px",
                 }}
               >
                 Tx Tech
               </span>
             </div>
-            <p style={{ fontSize: 14, color: "#a6a6a6", lineHeight: 1.6, maxWidth: 240 }}>
-              Phát triển website & mobile app chuyên nghiệp cho cá nhân và doanh nghiệp.
+
+            {/* Description */}
+            <p style={{ fontSize: 18, color: "rgba(255,255,255,0.65)", lineHeight: 1.7, maxWidth: 520 }}>
+              Phát triển website và mobile app chuyên nghiệp cho cá nhân và doanh nghiệp. 
+              Thiết kế hiện đại, hiệu suất cao, bảo mật tốt.
             </p>
-            <div style={{ display: "flex", gap: 12, marginTop: 4 }}>
-              {["𝕏", "in", "gh"].map((icon) => (
-                <a
-                  key={icon}
-                  href="#"
-                  style={{
-                    width: 32,
-                    height: 32,
-                    borderRadius: 8,
-                    background: "rgba(255,255,255,0.06)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: 13,
-                    color: "rgba(255,255,255,0.5)",
-                    textDecoration: "none",
-                    transition: "background 0.15s",
-                  }}
-                >
-                  {icon}
-                </a>
-              ))}
+
+            {/* Quick Links */}
+            <div style={{ display: "flex", gap: 40, flexWrap: "wrap", marginTop: 8 }}>
+              <a
+                href="#features"
+                style={{
+                  fontSize: 16,
+                  color: "rgba(255,255,255,0.5)",
+                  textDecoration: "none",
+                  transition: "color 0.2s ease",
+                  fontWeight: 600,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "#fff";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "rgba(255,255,255,0.5)";
+                }}
+              >
+                Dịch vụ
+              </a>
+              <a
+                href="#portfolio"
+                style={{
+                  fontSize: 16,
+                  color: "rgba(255,255,255,0.5)",
+                  textDecoration: "none",
+                  transition: "color 0.2s ease",
+                  fontWeight: 600,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "#fff";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "rgba(255,255,255,0.5)";
+                }}
+              >
+                Dự án
+              </a>
+              <a
+                href="#pricing"
+                style={{
+                  fontSize: 16,
+                  color: "rgba(255,255,255,0.5)",
+                  textDecoration: "none",
+                  transition: "color 0.2s ease",
+                  fontWeight: 600,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "#fff";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "rgba(255,255,255,0.5)";
+                }}
+              >
+                Báo giá
+              </a>
+              <a
+                href="/contact"
+                style={{
+                  fontSize: 16,
+                  color: "rgba(255,255,255,0.5)",
+                  textDecoration: "none",
+                  transition: "color 0.2s ease",
+                  fontWeight: 600,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "#fff";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "rgba(255,255,255,0.5)";
+                }}
+              >
+                Liên hệ
+              </a>
             </div>
           </div>
 
-          {/* Link columns */}
-          {Object.entries(footerLinks).map(([category, links]) => (
-            <div key={category} style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              <span
-                style={{
-                  fontSize: 12,
-                  fontWeight: 600,
-                  color: "rgba(255,255,255,0.4)",
-                  letterSpacing: "0.06em",
-                  textTransform: "uppercase",
-                  marginBottom: 4,
-                }}
-              >
-                {category}
-              </span>
-              {links.map((link) => (
+          {/* Right: Contact */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
+            <h3
+              style={{
+                fontSize: 20,
+                fontWeight: 700,
+                color: "#fff",
+                letterSpacing: "-0.5px",
+                marginBottom: 8,
+              }}
+            >
+              Kết nối với tôi
+            </h3>
+
+            {/* Social Icons - Larger */}
+            <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+              {socialLinks.map((social) => (
                 <a
-                  key={link}
-                  href="#"
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.name}
+                  title={social.name}
                   style={{
-                    fontSize: 14,
-                    color: "rgba(255,255,255,0.55)",
+                    width: 64,
+                    height: 64,
+                    borderRadius: 16,
+                    background: "rgba(255,255,255,0.05)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
                     textDecoration: "none",
-                    transition: "color 0.15s",
+                    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                    border: "1px solid rgba(255,255,255,0.1)",
+                    position: "relative",
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.55)")}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "rgba(255,255,255,0.1)";
+                    e.currentTarget.style.borderColor = "rgba(215, 172, 56, 0.4)";
+                    e.currentTarget.style.transform = "translateY(-6px)";
+                    e.currentTarget.style.boxShadow = "0 12px 30px rgba(215, 172, 56, 0.2)";
+                    const img = e.currentTarget.querySelector('img');
+                    if (img) img.style.filter = "grayscale(0) brightness(1)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "rgba(255,255,255,0.05)";
+                    e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow = "none";
+                    const img = e.currentTarget.querySelector('img');
+                    if (img) img.style.filter = "grayscale(1) brightness(0.7)";
+                  }}
                 >
-                  {link}
+                  <Image 
+                    src={social.icon} 
+                    alt={social.name} 
+                    width={28} 
+                    height={28}
+                    style={{ 
+                      transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                      filter: "grayscale(1) brightness(0.7)",
+                    }}
+                  />
                 </a>
               ))}
             </div>
-          ))}
+
+            {/* Contact Info */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 16, marginTop: 8 }}>
+              <a
+                href="mailto:lehoangtuan012@gmail.com"
+                style={{
+                  fontSize: 16,
+                  color: "rgba(255,255,255,0.6)",
+                  textDecoration: "none",
+                  transition: "color 0.2s ease",
+                  fontWeight: 500,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "#fff";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "rgba(255,255,255,0.6)";
+                }}
+              >
+                lehoangtuan012@gmail.com
+              </a>
+              <a
+                href="tel:0386426150"
+                style={{
+                  fontSize: 16,
+                  color: "rgba(255,255,255,0.6)",
+                  textDecoration: "none",
+                  transition: "color 0.2s ease",
+                  fontWeight: 500,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "#fff";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "rgba(255,255,255,0.6)";
+                }}
+              >
+                0386 426 150
+              </a>
+            </div>
+          </div>
         </div>
+
+        {/* Divider */}
+        <div
+          style={{
+            height: "1px",
+            background: "rgba(255,255,255,0.08)",
+            marginBottom: 32,
+          }}
+        />
 
         {/* Bottom bar */}
         <div
           style={{
-            marginTop: 48,
-            paddingTop: 24,
-            borderTop: "1px solid rgba(255,255,255,0.06)",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
             flexWrap: "wrap",
-            gap: 12,
+            gap: 16,
           }}
         >
-          <span style={{ fontSize: 13, color: "rgba(255,255,255,0.3)" }}>
-            © 2026 Tx Tech. All rights reserved.
+          <span style={{ fontSize: 15, color: "rgba(255,255,255,0.45)", fontWeight: 500 }}>
+            © {new Date().getFullYear()} Tx Tech. Made with ❤️ in Hà Nội
           </span>
-          <div style={{ display: "flex", gap: 20 }}>
-            {["Chính sách", "Điều khoản", "Bảo mật"].map((item) => (
-              <a
-                key={item}
-                href="#"
-                style={{ fontSize: 13, color: "rgba(255,255,255,0.3)", textDecoration: "none" }}
-              >
-                {item}
-              </a>
-            ))}
-          </div>
+          <span style={{ fontSize: 15, color: "rgba(255,255,255,0.45)", fontWeight: 500 }}>
+            Thiết kế & Phát triển bởi Tx Tech
+          </span>
         </div>
       </div>
+
+      {/* Mobile responsive */}
+      <style jsx>{`
+        @media (max-width: 968px) {
+          .footer-grid {
+            grid-template-columns: 1fr !important;
+            gap: 60px !important;
+          }
+          footer {
+            padding: 80px 24px 32px !important;
+          }
+        }
+      `}</style>
     </footer>
   );
 }

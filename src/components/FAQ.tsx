@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-
 import { ChevronDown } from "lucide-react";
 
 const faqs = [
@@ -51,58 +50,90 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section id="faq" style={{ padding: "100px 24px" }}>
+    <section id="faq" style={{ padding: "120px 32px", position: "relative", overflow: "hidden" }}>
+      {/* Background gradient orb */}
+      <div
+        style={{
+          position: "absolute",
+          top: "20%",
+          right: "-10%",
+          width: "600px",
+          height: "600px",
+          background: "radial-gradient(circle, rgba(237, 51, 52, 0.08) 0%, transparent 70%)",
+          filter: "blur(100px)",
+          pointerEvents: "none",
+        }}
+      />
+
       {/* SVG gradient definition for icons */}
       <svg width="0" height="0" style={{ position: 'absolute' }}>
         <defs>
-          <linearGradient id="icon-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <linearGradient id="icon-gradient-faq" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#d7ac38" />
             <stop offset="100%" stopColor="#ed3334" />
           </linearGradient>
         </defs>
       </svg>
       
-      <div style={{ maxWidth: 900, margin: "0 auto" }}>
+      <div style={{ maxWidth: 1000, margin: "0 auto", position: "relative" }}>
         {/* Header */}
-        <div className="text-center mb-16 fade-in-up">
-          <h2 className="section-heading text-white mb-4">
+        <div className="text-center fade-in-up" style={{ marginBottom: 80 }}>
+          <h2 className="section-heading text-white" style={{ marginBottom: 20 }}>
             Câu hỏi thường gặp
           </h2>
           <p
             style={{
-              fontSize: 18,
-              color: "#a6a6a6",
-              lineHeight: 1.5,
+              fontSize: 19,
+              color: "rgba(255,255,255,0.6)",
+              lineHeight: 1.6,
+              maxWidth: 640,
+              margin: "0 auto",
             }}
           >
-            Giải đáp những thắc mắc phổ biến về dịch vụ của chúng tôi
+            Giải đáp những thắc mắc phổ biến về dịch vụ phát triển website và mobile app
           </p>
         </div>
 
         {/* FAQ List */}
-        <div className="flex flex-col gap-3">
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           {faqs.map((faq, idx) => (
             <div
               key={idx}
               className="fade-in-up"
               style={{
-                background: openIndex === idx ? "#090909" : "#000",
-                border: "1px solid rgba(255,255,255,0.08)",
-                borderRadius: 12,
+                background: openIndex === idx 
+                  ? "linear-gradient(135deg, rgba(215, 172, 56, 0.03) 0%, rgba(237, 51, 52, 0.03) 100%)"
+                  : "rgba(255,255,255,0.02)",
+                border: openIndex === idx 
+                  ? "1px solid rgba(215, 172, 56, 0.2)"
+                  : "1px solid rgba(255,255,255,0.08)",
+                borderRadius: 16,
                 overflow: "hidden",
-                transition: "all 0.2s",
+                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                 animationDelay: `${idx * 0.05}s`,
+              }}
+              onMouseEnter={(e) => {
+                if (openIndex !== idx) {
+                  e.currentTarget.style.background = "rgba(255,255,255,0.04)";
+                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (openIndex !== idx) {
+                  e.currentTarget.style.background = "rgba(255,255,255,0.02)";
+                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
+                }
               }}
             >
               <button
                 onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
                 style={{
                   width: "100%",
-                  padding: "20px 24px",
+                  padding: "28px 32px",
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
-                  gap: 16,
+                  gap: 24,
                   background: "transparent",
                   border: "none",
                   cursor: "pointer",
@@ -111,40 +142,120 @@ export default function FAQ() {
               >
                 <span
                   style={{
-                    fontSize: 17,
+                    fontSize: 19,
                     fontWeight: 600,
-                    color: "#fff",
-                    lineHeight: 1.4,
+                    color: openIndex === idx ? "#fff" : "rgba(255,255,255,0.9)",
+                    lineHeight: 1.5,
+                    transition: "color 0.2s",
                   }}
                 >
                   {faq.question}
                 </span>
-                <ChevronDown
-                  size={20}
-                  style={{
-                    transition: "transform 0.2s",
-                    transform: openIndex === idx ? "rotate(180deg)" : "none",
-                    flexShrink: 0,
-                  }}
-                  className="gradient-icon"
-                />
-              </button>
-              {openIndex === idx && (
                 <div
                   style={{
-                    padding: "0 24px 20px",
-                    fontSize: 15,
-                    lineHeight: 1.7,
-                    color: "#a6a6a6",
+                    width: 40,
+                    height: 40,
+                    borderRadius: 10,
+                    background: openIndex === idx 
+                      ? "linear-gradient(135deg, rgba(215, 172, 56, 0.15) 0%, rgba(237, 51, 52, 0.15) 100%)"
+                      : "rgba(255,255,255,0.05)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    transition: "all 0.3s",
+                  }}
+                >
+                  <ChevronDown
+                    size={22}
+                    style={{
+                      transition: "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                      transform: openIndex === idx ? "rotate(180deg)" : "none",
+                      stroke: openIndex === idx ? "url(#icon-gradient-faq)" : "rgba(255,255,255,0.5)",
+                    }}
+                  />
+                </div>
+              </button>
+              
+              <div
+                style={{
+                  maxHeight: openIndex === idx ? "500px" : "0",
+                  overflow: "hidden",
+                  transition: "max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                }}
+              >
+                <div
+                  style={{
+                    padding: "0 32px 28px",
+                    fontSize: 17,
+                    lineHeight: 1.8,
+                    color: "rgba(255,255,255,0.65)",
                   }}
                 >
                   {faq.answer}
                 </div>
-              )}
+              </div>
             </div>
           ))}
         </div>
+
+        {/* CTA at bottom */}
+        <div
+          className="fade-in-up"
+          style={{
+            marginTop: 60,
+            textAlign: "center",
+            padding: "48px 32px",
+            background: "linear-gradient(135deg, rgba(215, 172, 56, 0.05) 0%, rgba(237, 51, 52, 0.05) 100%)",
+            border: "1px solid rgba(215, 172, 56, 0.15)",
+            borderRadius: 20,
+          }}
+        >
+          <h3
+            style={{
+              fontSize: 24,
+              fontWeight: 700,
+              color: "#fff",
+              marginBottom: 12,
+              letterSpacing: "-0.5px",
+            }}
+          >
+            Vẫn còn thắc mắc?
+          </h3>
+          <p
+            style={{
+              fontSize: 17,
+              color: "rgba(255,255,255,0.6)",
+              marginBottom: 28,
+              lineHeight: 1.6,
+            }}
+          >
+            Liên hệ trực tiếp để được tư vấn chi tiết và báo giá chính xác
+          </p>
+          <a href="/contact" className="btn-primary">
+            Liên hệ ngay
+          </a>
+        </div>
       </div>
+
+      {/* Mobile responsive */}
+      <style jsx>{`
+        @media (max-width: 768px) {
+          section {
+            padding: 80px 20px !important;
+          }
+          button {
+            padding: 20px 20px !important;
+          }
+          button span {
+            font-size: 17px !important;
+          }
+          div[style*="padding: 0 32px 28px"] {
+            padding: 0 20px 20px !important;
+            font-size: 15px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

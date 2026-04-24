@@ -1,131 +1,426 @@
+"use client";
+
+import { useState, useEffect, useRef } from "react";
+import { MessageSquare, Palette, Code, TestTube, Rocket, HeadphonesIcon } from "lucide-react";
+
 const steps = [
   {
     number: "01",
     title: "Tư vấn & Phân tích",
+    icon: MessageSquare,
     description:
       "Gặp gỡ trao đổi yêu cầu chi tiết. Phân tích đối thủ, nghiên cứu thị trường. Đề xuất giải pháp tối ưu cho doanh nghiệp.",
     duration: "1-2 ngày",
+    details: [
+      "Họp kickoff meeting với khách hàng",
+      "Thu thập yêu cầu chi tiết về tính năng",
+      "Phân tích đối thủ cạnh tranh",
+      "Nghiên cứu thị trường và target audience",
+      "Đề xuất giải pháp công nghệ phù hợp",
+      "Lập kế hoạch timeline và budget"
+    ],
   },
   {
     number: "02",
     title: "Thiết kế UI/UX",
+    icon: Palette,
     description:
       "Wireframe & mockup chi tiết. Thiết kế giao diện hiện đại, trải nghiệm mượt mà. Xác nhận với khách hàng trước khi code.",
     duration: "3-5 ngày",
+    details: [
+      "Vẽ wireframe cho tất cả màn hình",
+      "Thiết kế mockup high-fidelity",
+      "Tạo design system và style guide",
+      "Prototype tương tác với Figma",
+      "Review và điều chỉnh theo feedback",
+      "Xuất assets cho developer"
+    ],
   },
   {
     number: "03",
     title: "Phát triển",
+    icon: Code,
     description:
       "Code theo chuẩn best practices. Responsive hoàn hảo mọi thiết bị. Tối ưu hiệu suất & SEO. Demo hàng tuần.",
     duration: "7-14 ngày",
+    details: [
+      "Setup project structure và environment",
+      "Code frontend theo design đã duyệt",
+      "Phát triển backend API và database",
+      "Tích hợp third-party services",
+      "Responsive design cho mobile/tablet",
+      "Tối ưu performance và SEO",
+      "Demo tiến độ hàng tuần"
+    ],
   },
   {
     number: "04",
-    title: "Testing & Launch",
+    title: "Testing & QA",
+    icon: TestTube,
     description:
-      "Test kỹ lưỡng trên nhiều thiết bị. Fix bug, tối ưu cuối cùng. Deploy lên server, cấu hình domain. Đào tạo sử dụng.",
+      "Test kỹ lưỡng trên nhiều thiết bị. Fix bug, tối ưu cuối cùng. Đảm bảo chất lượng trước khi launch.",
     duration: "2-3 ngày",
+    details: [
+      "Unit testing và integration testing",
+      "Cross-browser testing",
+      "Responsive testing trên nhiều thiết bị",
+      "Performance testing và optimization",
+      "Security testing",
+      "User acceptance testing (UAT)",
+      "Fix bugs và polish UI"
+    ],
   },
   {
     number: "05",
+    title: "Deploy & Launch",
+    icon: Rocket,
+    description:
+      "Deploy lên server production. Cấu hình domain, SSL, CDN. Monitoring và đảm bảo website chạy ổn định.",
+    duration: "1-2 ngày",
+    details: [
+      "Setup server và database production",
+      "Cấu hình domain và SSL certificate",
+      "Deploy code lên production",
+      "Setup CDN và caching",
+      "Cấu hình monitoring và logging",
+      "Final check trước khi go-live",
+      "Đào tạo khách hàng sử dụng CMS"
+    ],
+  },
+  {
+    number: "06",
     title: "Bảo hành & Hỗ trợ",
+    icon: HeadphonesIcon,
     description:
       "Bảo hành 3-12 tháng tùy gói. Hỗ trợ kỹ thuật nhanh chóng. Cập nhật nội dung miễn phí. Tư vấn marketing online.",
     duration: "Liên tục",
+    details: [
+      "Bảo hành 3-12 tháng tùy gói",
+      "Fix bugs phát sinh miễn phí",
+      "Hỗ trợ kỹ thuật qua Zalo/Email",
+      "Cập nhật nội dung theo yêu cầu",
+      "Backup dữ liệu định kỳ",
+      "Tư vấn SEO và marketing online",
+      "Nâng cấp tính năng (có phí)"
+    ],
   },
 ];
 
 export default function Process() {
+  const [activeStep, setActiveStep] = useState(0);
+  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Scroll spy - detect which step is in view
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + window.innerHeight / 2;
+
+      for (let i = stepRefs.current.length - 1; i >= 0; i--) {
+        const stepElement = stepRefs.current[i];
+        if (stepElement) {
+          const { offsetTop } = stepElement;
+          if (scrollPosition >= offsetTop) {
+            setActiveStep(i);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Initial check
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Smooth scroll to step when clicking navigation
+  const scrollToStep = (index: number) => {
+    stepRefs.current[index]?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  };
+
   return (
-    <section id="process" style={{ padding: "100px 24px", background: "#000" }}>
-      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+    <section 
+      id="process" 
+      style={{ 
+        padding: "120px 32px", 
+        background: "#000",
+        position: "relative",
+      }}
+    >
+      <div style={{ maxWidth: 1280, margin: "0 auto", width: "100%" }}>
         {/* Header */}
-        <div className="text-center mb-16 fade-in-up">
-          <h2 className="section-heading text-white mb-4">
+        <div className="text-center fade-in-up" style={{ marginBottom: 80 }}>
+          <h2 className="section-heading text-white" style={{ marginBottom: 20 }}>
             Quy trình làm việc
           </h2>
           <p
             style={{
-              fontSize: 18,
-              color: "#a6a6a6",
-              maxWidth: 560,
+              fontSize: 19,
+              color: "rgba(255,255,255,0.6)",
+              maxWidth: 680,
               margin: "0 auto",
-              lineHeight: 1.5,
+              lineHeight: 1.6,
             }}
           >
-            Quy trình 5 bước minh bạch, chuyên nghiệp. 
-            Từ ý tưởng đến website hoàn chỉnh.
+            Quy trình 6 bước minh bạch, chuyên nghiệp. Từ ý tưởng đến website hoàn chỉnh
           </p>
         </div>
 
-        {/* Steps */}
-        <div className="flex flex-col gap-6">
-          {steps.map((step, idx) => (
-            <div
-              key={step.number}
-              className="card-ring p-6 flex flex-col md:flex-row gap-6 items-start fade-in-up"
-              style={{
-                background: idx % 2 === 0 ? "#000" : "#050505",
-                animationDelay: `${idx * 0.1}s`,
-              }}
-            >
-              {/* Number with gradient */}
-              <div
-                className="gradient-text"
-                style={{
-                  fontSize: 56,
-                  fontWeight: 800,
-                  opacity: 0.3,
-                  lineHeight: 1,
-                  letterSpacing: "-2px",
-                  minWidth: 80,
-                }}
-              >
-                {step.number}
-              </div>
+        {/* Two Column Layout - Left Sticky, Right Scrolls */}
+        <div style={{ display: "flex", gap: "80px", alignItems: "flex-start", position: "relative" }}>
+          {/* Left Column - Navigation (Sticky) */}
+          <div 
+            style={{ 
+              width: "300px", 
+              flexShrink: 0,
+              position: "-webkit-sticky" as any,
+              position: "sticky",
+              top: "120px",
+              alignSelf: "flex-start",
+              height: "fit-content",
+              zIndex: 10,
+            }}
+          >
+            <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+              {steps.map((step, idx) => {
+                const StepIcon = step.icon;
+                const isActive = idx === activeStep;
 
-              {/* Content */}
-              <div className="flex-1">
-                <div className="flex flex-wrap items-center gap-3 mb-3">
-                  <h3
+                return (
+                  <div
+                    key={step.number}
                     style={{
-                      fontSize: 24,
-                      fontWeight: 700,
-                      color: "#fff",
-                      letterSpacing: "-0.5px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "16px",
+                      cursor: "pointer",
+                      transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                      opacity: isActive ? 1 : 0.5,
+                      transform: isActive ? "translateX(8px)" : "translateX(0)",
                     }}
+                    onClick={() => scrollToStep(idx)}
                   >
-                    {step.title}
-                  </h3>
-                  <span
-                    className="gradient-tag"
-                    style={{
-                      fontSize: 12,
-                      fontWeight: 600,
-                      background: "rgba(215,172,56,0.08)",
-                      padding: "4px 10px",
-                      borderRadius: 100,
-                      border: "1px solid rgba(215,172,56,0.2)",
-                    }}
-                  >
-                    <span className="gradient-text">{step.duration}</span>
-                  </span>
-                </div>
-                <p
+                    {/* Icon Circle */}
+                    <div
+                      style={{
+                        width: "56px",
+                        height: "56px",
+                        borderRadius: "50%",
+                        background: isActive
+                          ? "linear-gradient(135deg, rgba(215, 172, 56, 0.2) 0%, rgba(237, 51, 52, 0.2) 100%)"
+                          : "rgba(255,255,255,0.05)",
+                        border: isActive
+                          ? "2px solid rgba(215, 172, 56, 0.6)"
+                          : "2px solid rgba(255,255,255,0.1)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexShrink: 0,
+                        transition: "all 0.3s ease",
+                        boxShadow: isActive ? "0 0 30px rgba(215, 172, 56, 0.3)" : "none",
+                        position: "relative",
+                      }}
+                    >
+                      <StepIcon 
+                        size={24} 
+                        style={{ 
+                          stroke: isActive ? "#d7ac38" : "rgba(255,255,255,0.4)",
+                          transition: "all 0.3s ease",
+                        }}
+                        strokeWidth={2}
+                      />
+                      
+                      {/* Number badge */}
+                      <div
+                        style={{
+                          position: "absolute",
+                          top: "-6px",
+                          right: "-6px",
+                          width: "24px",
+                          height: "24px",
+                          borderRadius: "50%",
+                          background: isActive
+                            ? "linear-gradient(135deg, #d7ac38 0%, #ed3334 100%)"
+                            : "rgba(255,255,255,0.1)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: "11px",
+                          fontWeight: 700,
+                          color: isActive ? "#000" : "rgba(255,255,255,0.5)",
+                          transition: "all 0.3s ease",
+                        }}
+                      >
+                        {step.number}
+                      </div>
+                    </div>
+
+                    {/* Title */}
+                    <div style={{ flex: 1 }}>
+                      <div
+                        style={{
+                          fontSize: "15px",
+                          fontWeight: 700,
+                          color: isActive ? "#fff" : "rgba(255,255,255,0.5)",
+                          transition: "color 0.3s ease",
+                          lineHeight: 1.3,
+                        }}
+                      >
+                        {step.title}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Right Column - Content (Scrollable) */}
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "40px" }}>
+            {steps.map((step, idx) => {
+              const StepIcon = step.icon;
+              
+              return (
+                <div
+                  key={step.number}
+                  ref={(el) => (stepRefs.current[idx] = el)}
                   style={{
-                    fontSize: 15,
-                    lineHeight: 1.7,
-                    color: "#a6a6a6",
+                    background: "linear-gradient(135deg, rgba(215, 172, 56, 0.08) 0%, rgba(237, 51, 52, 0.08) 100%)",
+                    border: "1px solid rgba(215,172,56,0.3)",
+                    borderRadius: "24px",
+                    padding: "48px",
+                    minHeight: "500px",
+                    scrollMarginTop: "100px",
                   }}
                 >
-                  {step.description}
-                </p>
-              </div>
-            </div>
-          ))}
+                  {/* Header */}
+                  <div style={{ marginBottom: "24px" }}>
+                    <h3
+                      style={{
+                        fontSize: "36px",
+                        fontWeight: 700,
+                        color: "#fff",
+                        letterSpacing: "-1px",
+                        marginBottom: "16px",
+                        lineHeight: 1.2,
+                      }}
+                    >
+                      {step.title}
+                    </h3>
+                    <span
+                      style={{
+                        display: "inline-block",
+                        fontSize: "14px",
+                        fontWeight: 600,
+                        background: "linear-gradient(135deg, rgba(215, 172, 56, 0.15) 0%, rgba(237, 51, 52, 0.15) 100%)",
+                        padding: "8px 18px",
+                        borderRadius: "100px",
+                        border: "1px solid rgba(215,172,56,0.3)",
+                        color: "rgba(255,255,255,0.9)",
+                      }}
+                    >
+                      ⏱️ {step.duration}
+                    </span>
+                  </div>
+
+                  {/* Description */}
+                  <p
+                    style={{
+                      fontSize: "18px",
+                      lineHeight: 1.8,
+                      color: "rgba(255,255,255,0.75)",
+                      marginBottom: "32px",
+                    }}
+                  >
+                    {step.description}
+                  </p>
+
+                  {/* Details Grid */}
+                  <div 
+                    style={{ 
+                      display: "grid",
+                      gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                      gap: "16px",
+                    }}
+                  >
+                    {step.details.map((detail, detailIdx) => (
+                      <div
+                        key={detailIdx}
+                        style={{
+                          display: "flex",
+                          alignItems: "flex-start",
+                          gap: "12px",
+                          padding: "12px 16px",
+                          background: "rgba(255,255,255,0.03)",
+                          borderRadius: "12px",
+                          border: "1px solid rgba(255,255,255,0.06)",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: "8px",
+                            height: "8px",
+                            borderRadius: "50%",
+                            background: "linear-gradient(135deg, #d7ac38 0%, #ed3334 100%)",
+                            marginTop: "6px",
+                            flexShrink: 0,
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontSize: "15px",
+                            color: "rgba(255,255,255,0.7)",
+                            lineHeight: 1.6,
+                          }}
+                        >
+                          {detail}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="text-center" style={{ marginTop: "80px" }}>
+          <a
+            href="/contact"
+            className="btn-primary"
+            style={{ padding: "18px 36px", fontSize: "18px", fontWeight: 600 }}
+          >
+            Bắt đầu dự án ngay
+          </a>
         </div>
       </div>
+
+      {/* Animations */}
+      <style jsx>{`
+        @media (max-width: 1024px) {
+          div[style*="display: flex; gap: 80px"] {
+            flex-direction: column !important;
+            gap: 40px !important;
+          }
+          div[style*="width: 300px"] {
+            width: 100% !important;
+            position: relative !important;
+          }
+          div[style*="flex-direction: column; gap: 24px"] {
+            flex-direction: row !important;
+            overflow-x: auto !important;
+          }
+        }
+        @media (max-width: 768px) {
+          section {
+            padding: 80px 20px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

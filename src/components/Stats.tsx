@@ -1,11 +1,81 @@
+"use client";
+
+import { useState, useEffect, useRef } from "react";
 import ScrollReveal from "@/components/ScrollReveal";
 
 const stats = [
-  { value: "50+", label: "Dự án hoàn thành" },
-  { value: "40+", label: "Khách hàng hài lòng" },
-  { value: "5+", label: "Năm kinh nghiệm" },
-  { value: "99%", label: "Đúng deadline" },
+  { value: 50, suffix: "+", label: "Dự án hoàn thành" },
+  { value: 40, suffix: "+", label: "Khách hàng hài lòng" },
+  { value: 5, suffix: "+", label: "Năm kinh nghiệm" },
+  { value: 99, suffix: "%", label: "Đúng deadline" },
 ];
+
+function CountUp({ end, suffix, duration = 2000 }: { end: number; suffix: string; duration?: number }) {
+  const [count, setCount] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !isVisible) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, [isVisible]);
+
+  useEffect(() => {
+    if (!isVisible) return;
+
+    let startTime: number | null = null;
+    const startValue = 0;
+
+    const animate = (currentTime: number) => {
+      if (!startTime) startTime = currentTime;
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+
+      // Easing function for smooth animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const currentCount = Math.floor(easeOutQuart * (end - startValue) + startValue);
+
+      setCount(currentCount);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        setCount(end);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [isVisible, end, duration]);
+
+  return (
+    <div ref={ref} className="gradient-text group-hover:scale-110 transition-transform duration-300"
+      style={{
+        fontSize: "clamp(48px, 6vw, 72px)",
+        fontWeight: 800,
+        lineHeight: 1,
+        letterSpacing: "-2px",
+        marginBottom: 12,
+      }}
+    >
+      {count}{suffix}
+    </div>
+  );
+}
 
 export default function Stats() {
   return (
@@ -18,18 +88,7 @@ export default function Stats() {
           {stats.map((stat, idx) => (
             <ScrollReveal key={stat.label} delay={idx * 100}>
               <div className="text-center group cursor-default">
-                <div
-                  className="gradient-text group-hover:scale-110 transition-transform duration-300"
-                  style={{
-                    fontSize: "clamp(48px, 6vw, 72px)",
-                    fontWeight: 800,
-                    lineHeight: 1,
-                    letterSpacing: "-2px",
-                    marginBottom: 12,
-                  }}
-                >
-                  {stat.value}
-                </div>
+                <CountUp end={stat.value} suffix={stat.suffix} />
                 <div
                   style={{
                     fontSize: 16,

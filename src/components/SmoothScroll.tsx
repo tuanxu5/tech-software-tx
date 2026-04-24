@@ -17,7 +17,7 @@ export default function SmoothScroll() {
           const targetElement = document.getElementById(targetId);
           
           if (targetElement) {
-            const navHeight = 56; // Height of fixed nav
+            const navHeight = 88; // Height of fixed nav + padding (56 + 32)
             const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight;
             
             window.scrollTo({

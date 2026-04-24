@@ -1,5 +1,30 @@
 @import "tailwindcss";
 
+/* Tx Tech Custom Fonts */
+@font-face {
+  font-family: 'Tx Tech';
+  src: url('/fonts/tx-tech-font-regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Tx Tech';
+  src: url('/fonts/tx-tech-font-semibold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Tx Tech';
+  src: url('/fonts/tx-tech-font-bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #000000;
   --foreground: #ffffff;
@@ -25,25 +50,25 @@
 html {
   background: #000000;
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  scroll-padding-top: 100px;
 }
 
 body {
   background: #000000;
   color: #ffffff;
-  font-family: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Tx Tech", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 /* Typography */
 .font-display {
-  font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  font-family: "Tx Tech", system-ui, -apple-system, sans-serif;
   font-weight: 700;
 }
 
 .hero-heading {
-  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-family: "Tx Tech", system-ui, sans-serif;
   font-weight: 800;
   font-size: clamp(48px, 8vw, 110px);
   line-height: 1.05;
@@ -51,7 +76,7 @@ body {
 }
 
 .section-display {
-  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-family: "Tx Tech", system-ui, sans-serif;
   font-weight: 800;
   font-size: clamp(40px, 6vw, 85px);
   line-height: 1.1;
@@ -59,7 +84,7 @@ body {
 }
 
 .section-heading {
-  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-family: "Tx Tech", system-ui, sans-serif;
   font-weight: 700;
   font-size: clamp(36px, 4vw, 62px);
   line-height: 1.15;
@@ -67,7 +92,7 @@ body {
 }
 
 .feature-heading {
-  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-family: "Tx Tech", system-ui, sans-serif;
   font-weight: 700;
   font-size: 32px;
   line-height: 1.25;
@@ -94,6 +119,7 @@ body {
   box-shadow: 0 4px 20px rgba(215, 172, 56, 0.25), 0 0 0 1px rgba(215, 172, 56, 0.1);
   position: relative;
   overflow: hidden;
+  isolation: isolate;
 }
 
 .btn-primary::before {
@@ -103,6 +129,7 @@ body {
   background: linear-gradient(135deg, #ed3334 0%, #d7ac38 100%);
   opacity: 0;
   transition: opacity 0.3s ease;
+  z-index: -1;
 }
 
 .btn-primary:hover {
@@ -112,11 +139,6 @@ body {
 
 .btn-primary:hover::before {
   opacity: 1;
-}
-
-.btn-primary > * {
-  position: relative;
-  z-index: 1;
 }
 
 .btn-frosted {
@@ -199,9 +221,9 @@ body {
 /* Navigation */
 .nav-link {
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: -0.2px;
-  color: rgba(255, 255, 255, 0.7);
+  color: #ffffff;
   text-decoration: none;
   transition: color 0.2s ease;
   position: relative;
@@ -442,4 +464,119 @@ body {
 /* Gradient icon for Lucide icons */
 .gradient-icon {
   stroke: url(#icon-gradient);
+}
+
+/* Form Styles */
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 15px;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.form-input:focus {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(215, 172, 56, 0.6);
+  box-shadow: 0 0 0 3px rgba(215, 172, 56, 0.15);
+}
+
+.form-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.form-input option {
+  background: #0a0a0a;
+  color: #ffffff;
+}
+
+/* Spinner Animation */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive Form */
+@media (max-width: 808px) {
+  .form-input {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+}
+
+/* Contact Form Responsive */
+@media (max-width: 808px) {
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .form-grid-2 {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Header Layout */
+header {
+  padding: 16px 24px 0;
+}
+
+/* Mobile header */
+@media (max-width: 1023px) {
+  header {
+    padding: 12px 16px 0;
+  }
+}
+
+/* Scroll Indicator Animation */
+@keyframes scrollIndicator {
+  0%, 100% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(10px);
+  }
+}
+
+/* Animated Gradient Text */
+.animated-gradient-text {
+  background: linear-gradient(
+    90deg,
+    #d7ac38 0%,
+    #ed3334 25%,
+    #d7ac38 50%,
+    #ed3334 75%,
+    #d7ac38 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  animation: gradientShift 4s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
