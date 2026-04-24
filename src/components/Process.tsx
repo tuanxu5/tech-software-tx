@@ -109,22 +109,37 @@ const steps = [
 export default function Process() {
   const [activeStep, setActiveStep] = useState(0);
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const sectionRef = useRef<HTMLElement>(null);
 
-  // Scroll spy - detect which step is in view
+  // Scroll spy - detect which step is in view within the section
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + window.innerHeight / 2;
+      if (!sectionRef.current) return;
 
-      for (let i = stepRefs.current.length - 1; i >= 0; i--) {
-        const stepElement = stepRefs.current[i];
+      const sectionTop = sectionRef.current.getBoundingClientRect().top + window.scrollY;
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const scrollCenter = scrollPosition + windowHeight / 2;
+
+      // Find which step is closest to center of viewport
+      let closestStep = 0;
+      let closestDistance = Infinity;
+
+      stepRefs.current.forEach((stepElement, idx) => {
         if (stepElement) {
-          const { offsetTop } = stepElement;
-          if (scrollPosition >= offsetTop) {
-            setActiveStep(i);
-            break;
+          const stepTop = stepElement.getBoundingClientRect().top + window.scrollY;
+          const stepHeight = stepElement.offsetHeight;
+          const stepCenter = stepTop + stepHeight / 2;
+          const distance = Math.abs(scrollCenter - stepCenter);
+
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestStep = idx;
           }
         }
-      }
+      });
+
+      setActiveStep(closestStep);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -143,45 +158,30 @@ export default function Process() {
 
   return (
     <section 
+      ref={sectionRef}
       id="process" 
       style={{ 
-        padding: "120px 32px", 
+        padding: "120px 32px 120px 32px", 
         background: "#000",
         position: "relative",
+        overflow: "visible",
       }}
     >
-      <div style={{ maxWidth: 1280, margin: "0 auto", width: "100%" }}>
-        {/* Header */}
-        <div className="text-center fade-in-up" style={{ marginBottom: 80 }}>
-          <h2 className="section-heading text-white" style={{ marginBottom: 20 }}>
-            Quy trình làm việc
-          </h2>
-          <p
-            style={{
-              fontSize: 19,
-              color: "rgba(255,255,255,0.6)",
-              maxWidth: 680,
-              margin: "0 auto",
-              lineHeight: 1.6,
-            }}
-          >
-            Quy trình 6 bước minh bạch, chuyên nghiệp. Từ ý tưởng đến website hoàn chỉnh
-          </p>
-        </div>
-
+      <div style={{ maxWidth: 1280, margin: "0 auto", width: "100%", overflow: "visible" }}>
         {/* Two Column Layout - Left Sticky, Right Scrolls */}
-        <div style={{ display: "flex", gap: "80px", alignItems: "flex-start", position: "relative" }}>
+        <div style={{ display: "flex", gap: "80px", alignItems: "flex-start", position: "relative", minHeight: "100vh" }}>
           {/* Left Column - Navigation (Sticky) */}
           <div 
             style={{ 
               width: "300px", 
               flexShrink: 0,
-              position: "-webkit-sticky" as any,
               position: "sticky",
-              top: "120px",
+              top: "50%",
+              transform: "translateY(-50%)",
               alignSelf: "flex-start",
               height: "fit-content",
               zIndex: 10,
+              marginTop: "240px",
             }}
           >
             <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
@@ -210,17 +210,16 @@ export default function Process() {
                         height: "56px",
                         borderRadius: "50%",
                         background: isActive
-                          ? "linear-gradient(135deg, rgba(215, 172, 56, 0.2) 0%, rgba(237, 51, 52, 0.2) 100%)"
-                          : "rgba(255,255,255,0.05)",
+                          ? "linear-gradient(135deg, rgba(215, 172, 56, 0.15), rgba(237, 51, 52, 0.15))"
+                          : "rgba(255,255,255,0.04)",
                         border: isActive
-                          ? "2px solid rgba(215, 172, 56, 0.6)"
-                          : "2px solid rgba(255,255,255,0.1)",
+                          ? "1px solid rgba(215, 172, 56, 0.4)"
+                          : "1px solid rgba(255,255,255,0.08)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                         flexShrink: 0,
                         transition: "all 0.3s ease",
-                        boxShadow: isActive ? "0 0 30px rgba(215, 172, 56, 0.3)" : "none",
                         position: "relative",
                       }}
                     >
@@ -264,8 +263,12 @@ export default function Process() {
                         style={{
                           fontSize: "15px",
                           fontWeight: 700,
-                          color: isActive ? "#fff" : "rgba(255,255,255,0.5)",
-                          transition: "color 0.3s ease",
+                          background: isActive ? "linear-gradient(90deg, #d7ac38, #ed3334)" : "transparent",
+                          WebkitBackgroundClip: isActive ? "text" : "unset",
+                          WebkitTextFillColor: isActive ? "transparent" : "rgba(255,255,255,0.5)",
+                          backgroundClip: isActive ? "text" : "unset",
+                          color: isActive ? "transparent" : "rgba(255,255,255,0.5)",
+                          transition: "all 0.3s ease",
                           lineHeight: 1.3,
                         }}
                       >
@@ -280,20 +283,38 @@ export default function Process() {
 
           {/* Right Column - Content (Scrollable) */}
           <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "40px" }}>
+            {/* Header */}
+            <div className="fade-in-up" style={{ marginBottom: 40 }}>
+              <h2 className="section-heading text-white" style={{ marginBottom: 20 }}>
+                Quy trình làm việc
+              </h2>
+              <p
+                style={{
+                  fontSize: 19,
+                  color: "rgba(255,255,255,0.6)",
+                  maxWidth: 680,
+                  lineHeight: 1.6,
+                }}
+              >
+                Quy trình 6 bước minh bạch, chuyên nghiệp. Từ ý tưởng đến website hoàn chỉnh
+              </p>
+            </div>
+
             {steps.map((step, idx) => {
               const StepIcon = step.icon;
               
               return (
                 <div
                   key={step.number}
-                  ref={(el) => (stepRefs.current[idx] = el)}
+                  ref={(el) => { stepRefs.current[idx] = el; }}
                   style={{
-                    background: "linear-gradient(135deg, rgba(215, 172, 56, 0.08) 0%, rgba(237, 51, 52, 0.08) 100%)",
-                    border: "1px solid rgba(215,172,56,0.3)",
+                    background: "rgba(255, 255, 255, 0.04)",
+                    border: "1px solid rgba(255,255,255,0.1)",
                     borderRadius: "24px",
                     padding: "48px",
                     minHeight: "500px",
                     scrollMarginTop: "100px",
+                    transition: "border-color 0.3s ease",
                   }}
                 >
                   {/* Header */}
@@ -304,26 +325,11 @@ export default function Process() {
                         fontWeight: 700,
                         color: "#fff",
                         letterSpacing: "-1px",
-                        marginBottom: "16px",
                         lineHeight: 1.2,
                       }}
                     >
                       {step.title}
                     </h3>
-                    <span
-                      style={{
-                        display: "inline-block",
-                        fontSize: "14px",
-                        fontWeight: 600,
-                        background: "linear-gradient(135deg, rgba(215, 172, 56, 0.15) 0%, rgba(237, 51, 52, 0.15) 100%)",
-                        padding: "8px 18px",
-                        borderRadius: "100px",
-                        border: "1px solid rgba(215,172,56,0.3)",
-                        color: "rgba(255,255,255,0.9)",
-                      }}
-                    >
-                      ⏱️ {step.duration}
-                    </span>
                   </div>
 
                   {/* Description */}
