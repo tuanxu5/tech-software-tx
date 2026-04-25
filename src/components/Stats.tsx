@@ -82,8 +82,8 @@ export default function Stats() {
     <section style={{ padding: "80px 24px", background: "#000" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <div
-          className="grid gap-8"
-          style={{ gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))" }}
+          className="grid gap-8 stats-grid"
+          style={{ gridTemplateColumns: "repeat(4, 1fr)" }}
         >
           {stats.map((stat, idx) => (
             <ScrollReveal key={stat.label} delay={idx * 100}>

@@ -172,6 +172,7 @@ export default function Process() {
         <div style={{ display: "flex", gap: "80px", alignItems: "flex-start", position: "relative", minHeight: "100vh" }}>
           {/* Left Column - Navigation (Sticky) */}
           <div 
+            className="process-navigation"
             style={{ 
               width: "300px", 
               flexShrink: 0,
@@ -315,6 +316,7 @@ export default function Process() {
                 <div
                   key={step.number}
                   ref={(el) => { stepRefs.current[idx] = el; }}
+                  className="process-card"
                   style={{
                     background: "rgba(255, 255, 255, 0.04)",
                     border: "1px solid rgba(255,255,255,0.1)",
@@ -419,18 +421,83 @@ export default function Process() {
             flex-direction: column !important;
             gap: 40px !important;
           }
-          div[style*="width: 300px"] {
+          .process-navigation {
             width: 100% !important;
             position: relative !important;
+            top: auto !important;
+            transform: none !important;
+            margin-top: 0 !important;
           }
           div[style*="flex-direction: column; gap: 24px"] {
             flex-direction: row !important;
             overflow-x: auto !important;
+            padding-bottom: 16px !important;
+          }
+          
+          /* Card padding on tablet */
+          .process-card {
+            padding: 32px !important;
           }
         }
+        
         @media (max-width: 768px) {
           section {
             padding: 80px 20px !important;
+          }
+          
+          /* Hide left navigation on mobile */
+          .process-navigation {
+            display: none !important;
+          }
+          
+          /* Card padding on mobile */
+          .process-card {
+            padding: 24px 18px !important;
+          }
+          
+          /* Title size */
+          h3[style*="fontSize: 36px"] {
+            font-size: 24px !important;
+            letter-spacing: -0.5px !important;
+          }
+          
+          /* Description size */
+          p[style*="fontSize: 18px"] {
+            font-size: 15px !important;
+            line-height: 1.6 !important;
+            margin-bottom: 24px !important;
+          }
+          
+          /* Detail items text */
+          span[style*="fontSize: 15px"] {
+            font-size: 14px !important;
+          }
+          
+          /* Details grid - single column */
+          div[style*="gridTemplateColumns: repeat(auto-fit, minmax(280px, 1fr))"] {
+            grid-template-columns: 1fr !important;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          /* Card padding smaller on small mobile */
+          .process-card {
+            padding: 20px 16px !important;
+          }
+          
+          /* Title smaller */
+          h3[style*="fontSize: 36px"] {
+            font-size: 22px !important;
+          }
+          
+          /* Description smaller */
+          p[style*="fontSize: 18px"] {
+            font-size: 14px !important;
+          }
+          
+          /* Detail items smaller */
+          span[style*="fontSize: 15px"] {
+            font-size: 13px !important;
           }
         }
       `}</style>

@@ -1,5 +1,7 @@
 "use client";
 
+import { X, Menu } from "lucide-react";
+
 interface NavProps {
   mobileMenuOpen: boolean;
   setMobileMenuOpen: (open: boolean) => void;
@@ -71,26 +73,24 @@ export default function Nav({ mobileMenuOpen, setMobileMenuOpen }: NavProps) {
 
         {/* Mobile hamburger */}
         <button
-          className="lg:hidden flex flex-col gap-1.5 p-2"
+          className="lg:hidden flex items-center justify-center relative"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle menu"
+          style={{
+            width: 48,
+            height: 48,
+            background: mobileMenuOpen ? "rgba(255, 255, 255, 0.08)" : "transparent",
+            borderRadius: "50%",
+            transition: "all 0.3s ease",
+            border: "none",
+            cursor: "pointer",
+          }}
         >
-          <span
-            className="block w-5 h-0.5 bg-white transition-all duration-200"
-            style={{
-              transform: mobileMenuOpen ? "rotate(45deg) translate(3px, 3px)" : "none",
-            }}
-          />
-          <span
-            className="block w-5 h-0.5 bg-white transition-all duration-200"
-            style={{ opacity: mobileMenuOpen ? 0 : 1 }}
-          />
-          <span
-            className="block w-5 h-0.5 bg-white transition-all duration-200"
-            style={{
-              transform: mobileMenuOpen ? "rotate(-45deg) translate(3px, -3px)" : "none",
-            }}
-          />
+          {mobileMenuOpen ? (
+            <X size={24} color="#ffffff" strokeWidth={2} />
+          ) : (
+            <Menu size={24} color="#ffffff" strokeWidth={2} />
+          )}
         </button>
       </div>
 

@@ -64,6 +64,19 @@ const testimonials = [
 export default function Testimonials() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if mobile on mount and resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Auto slide every 5 seconds
   useEffect(() => {
@@ -131,6 +144,7 @@ export default function Testimonials() {
 
         {/* Main Content - 2 columns */}
         <div
+          className="testimonials-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "450px 1fr",
@@ -138,8 +152,11 @@ export default function Testimonials() {
             alignItems: "center",
           }}
         >
-          {/* Left: Avatar circles - all 6 in circular orbit */}
-          <div style={{ position: "relative", height: "500px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          {/* Left: Avatar circles - Desktop only with circular orbit */}
+          <div 
+            className="testimonial-avatars desktop-avatars"
+            style={{ position: "relative", height: "500px", display: "flex", alignItems: "center", justifyContent: "center" }}
+          >
             {/* Background glow for active avatar */}
             <div
               style={{
@@ -164,7 +181,9 @@ export default function Testimonials() {
               const angleOffset = -(activeIndex / testimonials.length) * Math.PI * 2;
               const angle = (idx / testimonials.length) * Math.PI * 2 + angleOffset;
               const radius = 220; // Increased for more spacing between avatars
-              const centerX = 80; // Moved further left from 100 to 80
+              
+              // Responsive centerX - center on mobile, left on desktop
+              const centerX = 80;
               const centerY = 250;
               const x = centerX + Math.cos(angle) * radius;
               const y = centerY + Math.sin(angle) * radius;
@@ -283,6 +302,63 @@ export default function Testimonials() {
                 </div>
               );
             })}
+          </div>
+
+          {/* Mobile: Simple single avatar - Mobile only */}
+          <div 
+            className="mobile-avatar"
+            style={{ 
+              display: "none",
+              justifyContent: "center",
+              marginBottom: "32px",
+            }}
+          >
+            <div
+              style={{
+                width: "216px",
+                height: "216px",
+                borderRadius: "50%",
+                background: "linear-gradient(135deg, #d7ac38 0%, #ed3334 100%)",
+                padding: "3px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                boxShadow: "0 0 30px rgba(215, 172, 56, 0.3)",
+              }}
+            >
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  borderRadius: "50%",
+                  background: "#000",
+                  padding: "10px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <div
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "50%",
+                    overflow: "hidden",
+                    position: "relative",
+                  }}
+                >
+                  <Image
+                    src={activeTestimonial.image}
+                    alt={activeTestimonial.author}
+                    fill
+                    style={{
+                      objectFit: "cover",
+                    }}
+                    sizes="216px"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Right: Content */}
@@ -432,12 +508,37 @@ export default function Testimonials() {
         }
 
         @media (max-width: 1024px) {
-          div[style*="gridTemplateColumns: 450px 1fr"] {
+          .testimonials-grid {
             grid-template-columns: 1fr !important;
             gap: 60px !important;
           }
-          div[style*="height: 500px"] {
+          .desktop-avatars {
             height: 400px !important;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .testimonials-grid {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+          }
+          .desktop-avatars {
+            display: none !important;
+          }
+          .mobile-avatar {
+            display: flex !important;
+          }
+          p[style*="fontSize: 28px"] {
+            font-size: 20px !important;
+          }
+          div[style*="fontSize: 20px"] {
+            font-size: 18px !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          p[style*="fontSize: 28px"] {
+            font-size: 18px !important;
           }
         }
       `}</style>
