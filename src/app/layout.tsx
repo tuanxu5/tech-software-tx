@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "Tx Tech — Phát triển Website & Mobile App chuyên nghiệp",
   description:
     "Phát triển website và ứng dụng di động cho cá nhân & doanh nghiệp. Thiết kế hiện đại, tối ưu hiệu suất, bảo mật cao. Báo giá minh bạch.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({

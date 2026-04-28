@@ -16,6 +16,7 @@ export default function ContactPage() {
       
       {/* Simple Hero */}
       <section
+        className="contact-hero"
         style={{
           paddingTop: 160,
           paddingBottom: 80,
@@ -50,6 +51,28 @@ export default function ContactPage() {
         <ContactForm />
       </main>
       <Footer />
+      
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .contact-hero {
+            padding: 160px 20px 60px !important;
+          }
+          
+          .contact-hero p {
+            font-size: 16px !important;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .contact-hero {
+            padding: 140px 16px 50px !important;
+          }
+          
+          .contact-hero p {
+            font-size: 15px !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }

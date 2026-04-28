@@ -1,6 +1,7 @@
 "use client";
 
 import { X, Menu } from "lucide-react";
+import Logo from "@/components/Logo";
 
 interface NavProps {
   mobileMenuOpen: boolean;
@@ -40,23 +41,10 @@ export default function Nav({ mobileMenuOpen, setMobileMenuOpen }: NavProps) {
         }}
       >
         {/* Logo - Left */}
-        <a href="/" className="flex items-center gap-3 text-white no-underline group">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" className="transition-transform duration-300 group-hover:scale-110">
-            <defs>
-              <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#d7ac38" />
-                <stop offset="100%" stopColor="#ed3334" />
-              </linearGradient>
-            </defs>
-            <rect width="32" height="32" rx="8" fill="url(#logo-gradient)" />
-            <path d="M10 9h12v3H10zM10 15h12v3H10zM10 21h8v3h-8z" fill="white" stroke="white" strokeWidth="0.5" />
-          </svg>
-          <span
-            className="font-display text-white"
-            style={{ fontSize: 20, fontWeight: 700, letterSpacing: "-0.5px" }}
-          >
-            Tx Tech
-          </span>
+        <a href="/" className="no-underline group">
+          <div className="transition-transform duration-300 group-hover:scale-110">
+            <Logo size={36} showText={true} />
+          </div>
         </a>
 
         {/* Desktop nav + CTA - Right */}

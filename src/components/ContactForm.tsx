@@ -119,6 +119,7 @@ export default function ContactForm() {
       <div style={{ maxWidth: 1000, margin: "0 auto" }}>
         {/* Form */}
         <div
+          className="contact-form-container"
           style={{
             background: "rgba(255,255,255,0.04)",
             border: "1px solid rgba(255,255,255,0.1)",
@@ -509,11 +510,59 @@ export default function ContactForm() {
 
       <style jsx>{`
         @media (max-width: 768px) {
+          /* Email & Phone grid to single column */
           div[style*="gridTemplateColumns: 1fr 1fr"] {
             grid-template-columns: 1fr !important;
           }
-          div[style*="padding: 56px"] {
-            padding: 32px !important;
+          
+          /* Form padding */
+          .contact-form-container {
+            padding: 24px 20px !important;
+          }
+          
+          /* Form title */
+          h2[style*="fontSize: 28px"] {
+            font-size: 24px !important;
+          }
+          
+          /* Contact info cards padding */
+          div[style*="padding: 32px"] {
+            padding: 24px !important;
+          }
+          
+          /* Contact info grid */
+          div[style*="gridTemplateColumns: repeat(auto-fit, minmax(300px, 1fr))"] {
+            grid-template-columns: 1fr !important;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          /* Form padding smaller */
+          .contact-form-container {
+            padding: 20px 16px !important;
+          }
+          
+          /* Form title smaller */
+          h2[style*="fontSize: 28px"] {
+            font-size: 22px !important;
+          }
+          
+          /* Input padding */
+          input[style*="padding: 16px 20px"],
+          textarea[style*="padding: 16px 20px"] {
+            padding: 14px 16px !important;
+            font-size: 15px !important;
+          }
+          
+          /* Button padding */
+          button[style*="padding: 18px 36px"] {
+            padding: 16px 28px !important;
+            font-size: 16px !important;
+          }
+          
+          /* Contact info cards smaller */
+          div[style*="padding: 32px"] {
+            padding: 20px !important;
           }
         }
       `}</style>

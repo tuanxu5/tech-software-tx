@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { IconsAssets } from "../../public/icons";
+import Logo from "@/components/Logo";
 
 const socialLinks = [
   { 
@@ -68,28 +69,7 @@ export default function Footer() {
           {/* Left: Brand & Info */}
           <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
             {/* Logo */}
-            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                <defs>
-                  <linearGradient id="footer-logo-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#d7ac38" />
-                    <stop offset="100%" stopColor="#ed3334" />
-                  </linearGradient>
-                </defs>
-                <rect width="48" height="48" rx="12" fill="url(#footer-logo-gradient)" />
-                <path d="M14 12h20v4H14zM14 22h20v4H14zM14 32h12v4H14z" fill="white" stroke="white" strokeWidth="0.5" />
-              </svg>
-              <span
-                style={{
-                  fontSize: 28,
-                  fontWeight: 700,
-                  color: "#fff",
-                  letterSpacing: "-0.8px",
-                }}
-              >
-                Tx Tech
-              </span>
-            </div>
+            <Logo size={48} showText={true} />
 
             {/* Description */}
             <p style={{ fontSize: 18, color: "rgba(255,255,255,0.65)", lineHeight: 1.7, maxWidth: 520 }}>
